@@ -20,7 +20,7 @@ const Navbar = () => {
 
 			<ul className='flex space-x-6'>
 				{links.map((link) => (
-					<li>
+					<li key={link.label}>
 						<Link
 							className={classnames({
 								"text-zinc-900": link.href === pathName,
