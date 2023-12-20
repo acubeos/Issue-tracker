@@ -3,7 +3,7 @@ import React from "react"
 import prisma from "@/prisma/client"
 import StatusBadge from "../component/StatusBadge"
 import IssueAction from "./IssueAction"
-import Link from "next/link"
+import Link from "../component/Link"
 
 const page = async () => {
 	const issues = await prisma.issue.findMany()
