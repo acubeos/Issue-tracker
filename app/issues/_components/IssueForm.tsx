@@ -9,7 +9,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createIssueSchema } from "@/app/validationSchema"
+import { issueSchema } from "@/app/validationSchema"
 import { z } from "zod"
 import ErrorMessage from "@/app/component/ErrorMessage"
 import ElementSpinner from "@/app/component/ElementSpinner"
@@ -19,7 +19,7 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
 	ssr: false,
 })
 
-type IssueFormData = z.infer<typeof createIssueSchema>
+type IssueFormData = z.infer<typeof issueSchema>
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
 	const {
@@ -29,7 +29,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 
 		formState: { errors },
 	} = useForm<IssueFormData>({
-		resolver: zodResolver(createIssueSchema),
+		resolver: zodResolver(issueSchema),
 	})
 	const router = useRouter()
 	const [error, setError] = useState("")
@@ -38,7 +38,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 	const onSubmit = handleSubmit(async (data) => {
 		try {
 			setIsSubmitting(true)
-			await axios.post("/api/issues", data)
+			if (issue) await axios.patch("/api/issues/" + issue.id, data)
+			else await axios.post("/api/issues", data)
 			router.push("/issues")
 		} catch (error) {
 			setIsSubmitting(false)
@@ -75,7 +76,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 				/>
 				{<ErrorMessage>{errors.description?.message}</ErrorMessage>}
 				<Button disabled={isSubmitting}>
-					Submit New Issue {isSubmitting && <ElementSpinner />}
+					{issue ? "Update Issue" : "Submit New Issue"}{" "}
+					{isSubmitting && <ElementSpinner />}
 				</Button>
 			</form>
 		</div>
