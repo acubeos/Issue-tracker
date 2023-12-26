@@ -1,4 +1,5 @@
 "use client"
+
 import classnames from "classnames"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -13,6 +14,8 @@ import {
 	Flex,
 	Text,
 } from "@radix-ui/themes"
+import Skeleton from "react-loading-skeleton"
+import ElementSpinner from "./component/ElementSpinner"
 
 const Navbar = () => {
 	return (
@@ -62,7 +65,7 @@ const NavLink = () => {
 const AuthStatus = () => {
 	const { status, data: session } = useSession()
 
-	if (status === "loading") return null
+	if (status === "loading") return <ElementSpinner />
 
 	if (status === "unauthenticated")
 		return (
