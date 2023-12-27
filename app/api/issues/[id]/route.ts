@@ -13,9 +13,9 @@ export async function PATCH(
 
 	const body = await request.json()
 
-	const validation = patchIssueSchema.safeParse(body)
-	if (!validation.success)
-		return NextResponse.json(validation.error.format(), { status: 400 })
+	// const validation = patchIssueSchema.safeParse(body)
+	// if (!validation.success)
+	// 	return NextResponse.json(validation.error.format(), { status: 400 })
 
 	const { assignedToUserId, title, description } = body
 	if (assignedToUserId) {
@@ -23,7 +23,7 @@ export async function PATCH(
 			where: { id: assignedToUserId },
 		})
 		if (!user)
-			return NextResponse.json({ error: "Invalid User" }, { status: 400 })
+			return NextResponse.json({ error: "Invalid User." }, { status: 400 })
 	}
 
 	const issue = await prisma.issue.findUnique({
