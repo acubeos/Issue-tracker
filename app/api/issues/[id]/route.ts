@@ -13,9 +13,9 @@ export async function PATCH(
 
 	const body = await request.json()
 
-	// const validation = patchIssueSchema.safeParse(body)
-	// if (!validation.success)
-	// 	return NextResponse.json(validation.error.format(), { status: 400 })
+	const validation = patchIssueSchema.safeParse(body)
+	if (!validation.success)
+		return NextResponse.json(validation.error.format(), { status: 400 })
 
 	const { assignedToUserId, title, description } = body
 	if (assignedToUserId) {
