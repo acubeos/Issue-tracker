@@ -2,7 +2,6 @@ import { Flex, Grid } from "@radix-ui/themes"
 import IssueChart from "./IssueChart"
 import IssueSummary from "./IssueSummary"
 import LatestIssues from "./LatestIssues"
-import Pagination from "./component/Pagination"
 import prisma from "@/prisma/client"
 import { Metadata } from "next"
 
