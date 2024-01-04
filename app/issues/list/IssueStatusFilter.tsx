@@ -33,7 +33,7 @@ const IssueStatusFilter = () => {
 					{/* <Select.Group> */}
 					{/* <Select.Label>Suggestions</Select.Label> */}
 					{status.map((s) => (
-						<Select.Item key={s.value} value={s.value || " "}>
+						<Select.Item key={s.value} value={s.value || ""}>
 							{s.label}
 						</Select.Item>
 					))}
