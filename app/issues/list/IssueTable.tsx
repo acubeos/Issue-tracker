@@ -17,6 +17,9 @@ interface Props {
 }
 
 const IssueTable = ({ searchParams, issues }: Props) => {
+	const emptyTable = issues.map((m) => m.createdAt)
+	if (emptyTable.length < 1) return null
+
 	return (
 		<Table.Root variant='surface'>
 			<Table.Header>
